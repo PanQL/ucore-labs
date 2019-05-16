@@ -45,11 +45,14 @@ seta20.2:
 
 probe_memory:
     movl $0, 0x8000
-    xorl %ebx, %ebx
+    xorl %ebx, %ebx                                 # 首次调用，读取结果归零
     movw $0x8004, %di
 start_probe:
+    # 中断调用参数
     movl $0xE820, %eax
+    # 保存地址范围描述符的内存大小
     movl $20, %ecx
+    # 作为签名
     movl $SMAP, %edx
     int $0x15
     jnc cont

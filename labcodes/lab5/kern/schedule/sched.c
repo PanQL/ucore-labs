@@ -34,11 +34,13 @@ schedule(void) {
         do {
             if ((le = list_next(le)) != &proc_list) {
                 next = le2proc(le, list_link);
+				//warn("the pid is : %d \n", next->pid);
                 if (next->state == PROC_RUNNABLE) {
                     break;
                 }
             }
         } while (le != last);
+		//warn("finshed printing the pid \n");
         if (next == NULL || next->state != PROC_RUNNABLE) {
             next = idleproc;
         }
